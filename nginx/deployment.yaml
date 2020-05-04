@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    spinnaker-execution-id: '${execution[''id'']}'
+  labels:
+    app: nginx0
+  name: nginx0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx0
+  template:
+    metadata:
+      labels:
+        app: nginx0
+    spec:
+      containers:
+        - image: 'k8s.gcr.io/nginx:1.7.9'
+          name: nginx
+          ports:
+            - containerPort: 80
