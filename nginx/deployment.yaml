@@ -17,7 +17,7 @@ spec:
         app: nginx0
     spec:
       containers:
-        - image: ccastanedarivera/ingress:latest
+        - image: 'k8s.gcr.io/nginx:1.7.9'
           name: nginx
           ports:
             - containerPort: 80
