@@ -30,105 +30,26 @@ jobs:
       - name: my-step
         run: echo "Hello World!"
         
-#  deploy_staging:
-#    name: Deploy Staging
-#    needs: deploy_dev
-#    runs-on: ubuntu-latest
-#    environment:
-#      name: staging
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Configure AWS credentials
-#        uses: aws-actions/configure-aws-credentials@v1
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-#
-#      - name: Login to Amazon ECR
-#        id: login-ecr
-#        uses: aws-actions/amazon-ecr-login@v1
-#
-#      - name: Build, tag, and push image to Amazon ECR
-#        id: build_image
-#        env:
-#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-#          ECR_REPOSITORY: ${{ github.event.repository.name }}
-#          IMAGE_TAG: ${{ github.sha }}-staging
-#        run: |
-#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg DOMAIN_ARG=//api.inspex.staging.designerpages.com .
-#          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-#          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-#
-#      - name: Setup kubeconfig
-#        id: setup-kubeconfig
-#        run: |
-#          aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name designerpages
-#
-#      - name: Deploy k8s yaml
-#        id: deploy-k8s-yaml
-#        env:
-#          KUSTOMIZE_PATH: ./manifests/overlays/staging
-#          IMAGE_NAME: ${{ steps.build_image.outputs.image }}
-#        run: |
-#          # Setup kustomize
-#          cd $KUSTOMIZE_PATH
-#          curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-#          chmod u+x ./kustomize
-#          ./kustomize edit set image designerpages=$IMAGE_NAME
-#          ./kustomize build . | kubectl apply -f -
-#
-#
-#  deploy_production:
-#    name: Deploy Production
-#    needs: deploy_staging
-#    runs-on: ubuntu-latest
-#    environment:
-#      name: prod
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Configure AWS credentials
-#        uses: aws-actions/configure-aws-credentials@v1
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-#
-#      - name: Login to Amazon ECR
-#        id: login-ecr
-#        uses: aws-actions/amazon-ecr-login@v1
-#
-#      - name: Build, tag, and push image to Amazon ECR
-#        id: build_image
-#        env:
-#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-#          ECR_REPOSITORY: ${{ github.event.repository.name }}
-#          IMAGE_TAG: ${{ github.sha }}
-#        run: |
-#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg DOMAIN_ARG=//api.inspex.designerpages.com .
-#          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-#          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-#
-#      - name: Setup kubeconfig
-#        id: setup-kubeconfig
-#        run: |
-#          aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name designerpages
-#
-#      - name: Deploy k8s yaml
-#        id: deploy-k8s-yaml
-#        env:
-#          KUSTOMIZE_PATH: ./manifests/overlays/prod
-#          IMAGE_NAME: ${{ steps.build_image.outputs.image }}
-#        run: |
-#          # Setup kustomize
-#          cd $KUSTOMIZE_PATH
-#          curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-#          chmod u+x ./kustomize
-#          ./kustomize edit set image designerpages=$IMAGE_NAME
-#          ./kustomize build . | kubectl apply -f -
+  deploy_staging:
+    name: Deploy Development
+    needs: deploy_dev
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://inspex.dev.designerpages.com
+
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
+
+  deploy_prod:
+    name: Deploy Production
+    needs: deploy_staging
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: https://inspex.dev.designerpages.com
+
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
