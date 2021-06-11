@@ -24,19 +24,27 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: https://inspex.dev.designerpages.com
+      url: https://localhost:8080
 
     steps:
       - name: my-step
         run: echo "Hello World!"
-        
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
+
   deploy_staging:
     name: Deploy Development
     needs: deploy_dev
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://inspex.dev.designerpages.com
+      url: https://localhost:8080
 
     steps:
       - name: my-step
@@ -48,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prod
-      url: https://inspex.dev.designerpages.com
+      url: https://localhost:8080
 
     steps:
       - name: my-step
