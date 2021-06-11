@@ -43,66 +43,6 @@ jobs:
           status: custom
           fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
-#            {
-#              text: `Pre-deployment approval pending for release Inspex (${{ github.event.repository.name }}) on stage *staging*`,
-#                            "blocks": [
-#                            {
-#                            "type": "section",
-#                            "text": {
-#                            "type": "mrkdwn",
-#                            "text": "Pre-deployment approval pending to release on stage *staging*\n\n"
-#                            }
-#                            },
-#                            {
-#                            "type": "section",
-#                            "text": {
-#                            "type": "mrkdwn",
-#                            "text": "*Application:*\nInspex (inspex-api) \n\n*Commit:*\n${process.env.AS_COMMIT}\n\n *Approvers:*\n@Cristhian\n@Allan\n@Ariel\n\n"
-#                            },
-#                            "accessory": {
-#                            "type": "image",
-#                            "image_url": "https://avatars.githubusercontent.com/u/44036562?s=200&v=4",
-#                            "alt_text": "GitHub Actions"
-#                            }
-#                            },
-#                            {
-#                            "type": "section",
-#                            "text": {
-#                            "type": "mrkdwn",
-#                            "text": "*Created by:*\n${process.env.AS_AUTHOR}"
-#                            },
-#                            "accessory": {
-#                            "type": "button",
-#                            "text": {
-#                            "type": "plain_text",
-#                            "text": "Review request",
-#                            "emoji": true
-#                            },
-#                            "url": "https://github.com/cristhian-castaneda/spinnaker-manifest/actions/runs/927577456",
-#                            "action_id": "button-action"
-#                            }
-#                            }
-#                            ]
-#              attachments: [
-#              {
-#                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-#                text: `*Approvers* \n@Cristhian (${process.env.AS_COMMIT}) \n   ${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
-#              },
-#              {
-#                "name": "game",
-#                "text": "Thermonuclear War",
-#                "style": "danger",
-#                "type": "button",
-#                "value": "war",
-#                "confirm": {
-#                    "title": "Are you sure?",
-#                    "text": "Wouldn't you prefer a good game of chess?",
-#                    "ok_text": "Yes",
-#                    "dismiss_text": "No"
-#                 }
-#                }
-#              ]
-#            }
             {
               "text": "`Pre-deployment approval pending for release Inspex (${{ github.event.repository.name }}) on stage *staging*`",
               "blocks": [
