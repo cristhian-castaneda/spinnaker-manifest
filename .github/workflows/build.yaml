@@ -39,6 +39,7 @@ jobs:
 #         if: always() # Pick up events even if the job fails or is canceled.
 
       - uses: 8398a7/action-slack@v3
+        name: asdasd
         with:
           status: custom
           fields: workflow,job,commit,repo,ref,author,took
@@ -57,7 +58,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Application:*\nInspex (${{ github.event.repository.name }}) \n\n*Commit:*\n${{ github.sha }}\n\n *Approvers:*\n@Cristhian\n@Allan\n@Ariel\n\n"
+                    "text": "*Application:*\nInspex (${{ github.event.repository.name }}) \n\n*Commit:*\n${{ github.sha }}\n\n *Approvers:*\n@westin@Javier\n\n"
                   },
                   "accessory": {
                     "type": "image",
@@ -78,7 +79,7 @@ jobs:
                       "text": "Review request",
                       "emoji": true
                     },
-                    "url": "https://github.com/cristhian-castaneda/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}",
+                    "url": "https://github.com/designerpages/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}",
                     "action_id": "button-action"
                   }
                 }
@@ -86,8 +87,8 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          MATRIX_CONTEXT: ${{ toJson(matrix) }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        if: always()
 
   deploy_staging:
     name: Deploy Development
