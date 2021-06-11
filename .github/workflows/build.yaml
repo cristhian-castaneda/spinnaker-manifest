@@ -44,7 +44,7 @@ jobs:
           fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
-              text: `Pre-deployment approval pending for release ${process.env.AS_REPO}@${process.env.AS_REF} on stage *staging*`,
+              text: `Pre-deployment approval pending for release Inspex (${{ github.event.repository.name }}) on stage *staging*`,
               attachments: [
               {
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
