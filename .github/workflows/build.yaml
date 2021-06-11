@@ -44,10 +44,25 @@ jobs:
           fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
-              attachments: [{
+              attachments: [
+              {
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 text: `Pre-deployment approval pending for release ${process.env.AS_REPO}@${process.env.AS_REF} on stage *staging* \n\n\n(${process.env.AS_COMMIT})  ${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
-              }]
+              },
+              {
+                "name": "game",
+                "text": "Thermonuclear War",
+                "style": "danger",
+                "type": "button",
+                "value": "war",
+                "confirm": {
+                    "title": "Are you sure?",
+                    "text": "Wouldn't you prefer a good game of chess?",
+                    "ok_text": "Yes",
+                    "dismiss_text": "No"
+                 }
+                }
+              ]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
