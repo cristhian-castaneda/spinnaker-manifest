@@ -58,7 +58,7 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*Application:*\nInspex (inspex-api) \n\n*Approvers:*\n@Cristhian\n@Allan\n@Ariel\n\n"
+              				"text": "*Application:*\nInspex (inspex-api) \n\n*Commit:*\n${process.env.AS_COMMIT}\n\n *Approvers:*\n@Cristhian\n@Allan\n@Ariel\n\n"
               			},
               			"accessory": {
               				"type": "image",
@@ -70,7 +70,7 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*Created by:*\nCristhian Castaneda<ccastanedarivera@gmail.com>"
+              				"text": "*Created by:*\n${process.env.AS_AUTHOR}"
               			},
               			"accessory": {
               				"type": "button",
