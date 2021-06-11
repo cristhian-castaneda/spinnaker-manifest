@@ -44,7 +44,7 @@ jobs:
           fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
-              "text": "`Pre-deployment approval pending for release Inspex (${{ github.event.repository.name }}) on stage *staging*`",
+              "text": "`Pre-deployment approval`",
               "blocks": [
                 {
                   "type": "section",
@@ -57,7 +57,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Application:*\nInspex (inspex-api) \n\n*Commit:*\n${process.env.AS_COMMIT}\n\n *Approvers:*\n@Cristhian\n@Allan\n@Ariel\n\n"
+                    "text": "*Application:*\nInspex (${{ github.event.repository.name }}) \n\n*Commit:*\n${{ github.sha }}\n\n *Approvers:*\n@Cristhian\n@Allan\n@Ariel\n\n"
                   },
                   "accessory": {
                     "type": "image",
@@ -69,7 +69,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Created by:*\n${process.env.AS_AUTHOR}"
+                    "text": `*Created by:*\n ${process.env.AS_AUTHOR}`
                   },
                   "accessory": {
                     "type": "button",
@@ -78,7 +78,7 @@ jobs:
                       "text": "Review request",
                       "emoji": true
                     },
-                    "url": "https://github.com/cristhian-castaneda/spinnaker-manifest/actions/runs/927577456",
+                    "url": "https://github.com/cristhian-castaneda/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}",
                     "action_id": "button-action"
                   }
                 }
